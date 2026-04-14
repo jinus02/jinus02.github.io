@@ -789,8 +789,25 @@ footer .tag::before { background: var(--tomato); }
   padding: 36px 32px;
   box-shadow: 0 0 0 1.5px var(--ink), 6px 6px 0 var(--ink);
   min-height: 180px;
+  max-height: 640px;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tomato) var(--cream-2);
 }
+.guestbook-frame::-webkit-scrollbar { width: 10px; }
+.guestbook-frame::-webkit-scrollbar-track {
+  background: var(--cream-2);
+  border-radius: 10px;
+  margin: 8px 0;
+}
+.guestbook-frame::-webkit-scrollbar-thumb {
+  background: var(--tomato);
+  border-radius: 10px;
+  border: 2px solid var(--cream-2);
+}
+.guestbook-frame::-webkit-scrollbar-thumb:hover { background: var(--ink); }
 .guestbook-frame::before {
   content: "💌";
   position: absolute;
@@ -808,7 +825,7 @@ footer .tag::before { background: var(--tomato); }
 .giscus-frame { border: 0 !important; color-scheme: light; }
 
 @media (max-width: 720px) {
-  .guestbook-frame { padding: 28px 20px; }
+  .guestbook-frame { padding: 28px 20px; max-height: 520px; }
   .guestbook-frame::before { width: 48px; height: 48px; font-size: 22px; top: -24px; left: 20px; }
 }
 
