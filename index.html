@@ -214,6 +214,21 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   display: inline-block;
   animation: wiggle 4s ease-in-out infinite;
   transform-origin: bottom center;
+  cursor: pointer;
+  user-select: none;
+}
+.hero h1 .wiggle.is-hidden { opacity: 0; }
+
+.wave-flyer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  font-size: 4rem;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
+  filter: drop-shadow(0 10px 20px rgba(27,27,31,0.22));
+  transform-origin: 70% 30%;
 }
 @keyframes wiggle {
   0%, 100% { transform: rotate(0); }
@@ -1535,6 +1550,54 @@ footer .tag::before { background: var(--tomato); }
       prevReactions[key] = { count: reactions[key].count || 0 };
     }
   });
+
+  // 👋 클릭 → 오른쪽 상단에서 스윙하며 날아오기
+  (function setupWaveFly() {
+    const wiggle = document.querySelector(".hero h1 .wiggle");
+    if (!wiggle) return;
+    let flying = false;
+
+    wiggle.addEventListener("click", () => {
+      if (flying || prefersReduced) return;
+      flying = true;
+
+      const rect = wiggle.getBoundingClientRect();
+      const targetX = rect.left + rect.width / 2;
+      const targetY = rect.top + rect.height / 2;
+
+      const startX = window.innerWidth - 60;
+      const startY = 80;
+
+      // 곡선 경로 중간 지점 (오른쪽 위에서 활처럼 휘며 내려옴)
+      const midX = (startX + targetX) / 2 + 80;
+      const midY = (startY + targetY) / 2 - 140;
+
+      const flyer = document.createElement("span");
+      flyer.className = "wave-flyer";
+      flyer.textContent = "👋";
+      document.body.appendChild(flyer);
+
+      wiggle.classList.add("is-hidden");
+
+      const anim = flyer.animate([
+        { transform: `translate(${startX}px, ${startY}px) translate(-50%, -50%) rotate(-45deg) scale(1.4)`, offset: 0 },
+        { transform: `translate(${midX}px, ${midY}px) translate(-50%, -50%) rotate(25deg) scale(1.25)`, offset: 0.35 },
+        { transform: `translate(${(midX + targetX) / 2}px, ${(midY + targetY) / 2 + 30}px) translate(-50%, -50%) rotate(-18deg) scale(1.1)`, offset: 0.65 },
+        { transform: `translate(${targetX}px, ${targetY}px) translate(-50%, -50%) rotate(8deg) scale(0.85)`, offset: 0.88 },
+        { transform: `translate(${targetX}px, ${targetY}px) translate(-50%, -50%) rotate(0deg) scale(0.7)`, offset: 1 },
+      ], {
+        duration: 2600,
+        easing: "cubic-bezier(0.35, 0.05, 0.35, 1)",
+        fill: "forwards",
+      });
+
+      anim.onfinish = () => {
+        flyer.remove();
+        wiggle.classList.remove("is-hidden");
+        flying = false;
+      };
+    });
+  })();
 
   // 커서 블롭
   const blob = document.getElementById("cursorBlob");
