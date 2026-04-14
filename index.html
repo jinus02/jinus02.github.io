@@ -830,6 +830,52 @@ footer .tag::before { background: var(--tomato); }
 }
 
 /* ═══════════════════════════════════════════════════════════
+   EMOJI RAIN (Giscus reactions)
+   ═══════════════════════════════════════════════════════════ */
+.emoji-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.rain-emoji {
+  position: absolute;
+  font-size: 2.4rem;
+  animation-name: popfall;
+  animation-timing-function: cubic-bezier(0.32, 0, 0.67, 1);
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 6px 14px rgba(27,27,31,0.18));
+  user-select: none;
+}
+@keyframes popfall {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-50%, -50%) scale(calc(var(--s) * 1.25)) rotate(0deg);
+    opacity: 1;
+  }
+  18% {
+    transform: translate(-50%, -50%) scale(var(--s)) rotate(0deg);
+    opacity: 1;
+  }
+  85% { opacity: 1; }
+  100% {
+    transform:
+      translate(calc(-50% + var(--drift)), calc(-50% + var(--fallY)))
+      scale(var(--s))
+      rotate(var(--rot));
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .emoji-rain { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
    REVEAL
    ═══════════════════════════════════════════════════════════ */
 .reveal {
@@ -908,6 +954,7 @@ footer .tag::before { background: var(--tomato); }
 <body id="top">
 
 <div class="cursor-blob" id="cursorBlob"></div>
+<div class="emoji-rain" id="emojiRain" aria-hidden="true"></div>
 
 <nav id="nav">
   <a href="#top" class="logo"><span class="logo-dot"></span>Jinwoo</a>
@@ -1228,7 +1275,7 @@ footer .tag::before { background: var(--tomato); }
               data-term="방명록"
               data-strict="0"
               data-reactions-enabled="1"
-              data-emit-metadata="0"
+              data-emit-metadata="1"
               data-input-position="top"
               data-theme="light"
               data-lang="ko"
@@ -1277,6 +1324,81 @@ footer .tag::before { background: var(--tomato); }
 </footer>
 
 <script>
+  // ──────────────────────────────────────────────
+  // Giscus 반응 → 이모지 비 내리기
+  // ──────────────────────────────────────────────
+  const REACTION_EMOJI = {
+    THUMBS_UP:   "👍",
+    THUMBS_DOWN: "👎",
+    LAUGH:       "😄",
+    HOORAY:      "🎉",
+    CONFUSED:    "😕",
+    HEART:       "❤️",
+    ROCKET:      "🚀",
+    EYES:        "👀"
+  };
+
+  const rainContainer = document.getElementById("emojiRain");
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function spawnEmojiRain(emoji, count) {
+    if (!rainContainer || prefersReduced) return;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    count = count || 20;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("span");
+      el.className = "rain-emoji";
+      el.textContent = emoji;
+      // 사방에서 등장 (상단 75% 뷰포트 전역)
+      const startX = Math.random() * vw;
+      const startY = Math.random() * vh * 0.75;
+      const drift  = (Math.random() - 0.5) * 320;
+      const fallY  = (vh - startY) + 180;
+      const rot    = (Math.random() - 0.5) * 960;
+      const scale  = 0.85 + Math.random() * 1.35;
+      const dur    = 2200 + Math.random() * 1800;
+      el.style.left = startX + "px";
+      el.style.top  = startY + "px";
+      el.style.setProperty("--drift", drift + "px");
+      el.style.setProperty("--fallY", fallY + "px");
+      el.style.setProperty("--rot",   rot + "deg");
+      el.style.setProperty("--s",     scale);
+      el.style.animationDuration = dur + "ms";
+      el.style.animationDelay    = (Math.random() * 320) + "ms";
+      rainContainer.appendChild(el);
+      el.addEventListener("animationend", () => el.remove());
+    }
+  }
+
+  // Giscus 메타데이터 메시지 수신
+  let prevReactions = null;
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://giscus.app") return;
+    if (!event.data || typeof event.data !== "object") return;
+    const payload = event.data.giscus;
+    if (!payload || !payload.discussion) return;
+    const reactions = payload.discussion.reactions;
+    if (!reactions) return;
+
+    if (prevReactions) {
+      for (const key in reactions) {
+        const prev = prevReactions[key] ? (prevReactions[key].count || 0) : 0;
+        const curr = reactions[key] ? (reactions[key].count || 0) : 0;
+        const delta = curr - prev;
+        if (delta > 0 && REACTION_EMOJI[key]) {
+          // 증가한 개수만큼 더 풍성하게
+          spawnEmojiRain(REACTION_EMOJI[key], 16 + Math.min(delta * 4, 24));
+        }
+      }
+    }
+    // 카운트 스냅샷 저장 (deep copy)
+    prevReactions = {};
+    for (const key in reactions) {
+      prevReactions[key] = { count: reactions[key].count || 0 };
+    }
+  });
+
   // 커서 블롭
   const blob = document.getElementById("cursorBlob");
   if (blob && window.matchMedia("(hover: hover)").matches) {
