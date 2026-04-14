@@ -773,6 +773,46 @@ footer .tag::before { background: var(--tomato); }
 }
 
 /* ═══════════════════════════════════════════════════════════
+   GUESTBOOK
+   ═══════════════════════════════════════════════════════════ */
+#guestbook { background: var(--cream); position: relative; }
+#guestbook::before {
+  content: ""; position: absolute;
+  top: 0; left: 0; right: 0; height: 40px;
+  background: var(--cream-2);
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+.guestbook-frame {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow: 0 0 0 1.5px var(--ink), 6px 6px 0 var(--ink);
+  min-height: 180px;
+  position: relative;
+}
+.guestbook-frame::before {
+  content: "💌";
+  position: absolute;
+  top: -28px; left: 32px;
+  width: 56px; height: 56px;
+  background: var(--tangerine);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 0 0 1.5px var(--ink);
+  transform: rotate(-8deg);
+}
+/* giscus iframe tweaks */
+.giscus, .giscus-frame { width: 100%; min-height: 160px; }
+.giscus-frame { border: 0 !important; color-scheme: light; }
+
+@media (max-width: 720px) {
+  .guestbook-frame { padding: 28px 20px; }
+  .guestbook-frame::before { width: 48px; height: 48px; font-size: 22px; top: -24px; left: 20px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
    REVEAL
    ═══════════════════════════════════════════════════════════ */
 .reveal {
@@ -859,6 +899,7 @@ footer .tag::before { background: var(--tomato); }
     <a href="#credentials">자격</a>
     <a href="#journey">이력</a>
     <a href="#awards">수상</a>
+    <a href="#guestbook">방명록</a>
     <a href="#contact">연락</a>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false">
@@ -1146,6 +1187,38 @@ footer .tag::before { background: var(--tomato); }
         <div class="award-title">대학 창업경진대회</div>
         <div class="award-host">대구한의대학교</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── GUESTBOOK ─────────────────────────── -->
+<section id="guestbook">
+  <div class="wrap">
+    <div class="tag reveal">방명록</div>
+    <h2 class="section-title reveal">흔적 하나 <em>남기고</em> 가요 ✍️</h2>
+    <p class="section-intro reveal">
+      한 줄이라도 좋아요. 응원·제안·그냥 안부 — 무엇이든 환영합니다.
+      <strong>GitHub 계정으로 로그인</strong> 후 아래에 남겨주세요.
+    </p>
+    <div class="guestbook-frame reveal">
+      <div class="giscus"></div>
+      <script src="https://giscus.app/client.js"
+              data-repo="jinus02/jinus02.github.io"
+              data-repo-id="R_kgDOSCW3Pw"
+              data-category="General"
+              data-category-id="DIC_kwDOSCW3P84C61La"
+              data-mapping="specific"
+              data-term="방명록"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="top"
+              data-theme="light"
+              data-lang="ko"
+              data-loading="lazy"
+              crossorigin="anonymous"
+              async>
+      </script>
     </div>
   </div>
 </section>
