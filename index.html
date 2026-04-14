@@ -160,6 +160,31 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 .nav-toggle.open span::before { transform: translateY(6px) rotate(45deg); }
 .nav-toggle.open span::after  { transform: translateY(-6px) rotate(-45deg); }
 
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 36px;
+  padding: 0 12px;
+  margin-left: 4px;
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: 999px;
+  font-family: "Space Grotesk", "Pretendard", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 0 1.5px var(--ink), 3px 3px 0 var(--ink);
+  transition: transform .25s cubic-bezier(0.19, 1, 0.22, 1), box-shadow .25s, background .25s, color .25s;
+}
+.lang-toggle:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 0 0 0 1.5px var(--ink), 5px 5px 0 var(--tomato);
+  background: var(--tangerine);
+}
+.lang-toggle [data-lang-label] { pointer-events: none; }
+
 /* ═══════════════════════════════════════════════════════════
    HERO
    ═══════════════════════════════════════════════════════════ */
@@ -1002,14 +1027,17 @@ footer .tag::before { background: var(--tomato); }
 <nav id="nav">
   <a href="#top" class="logo"><span class="logo-dot"></span>Jinwoo</a>
   <div class="nav-links" id="navLinks">
-    <a href="#about">소개</a>
-    <a href="#credentials">자격</a>
-    <a href="#journey">이력</a>
-    <a href="#awards">수상</a>
-    <a href="#guestbook">방명록</a>
-    <a href="#contact">연락</a>
+    <a href="#about" data-en="About">소개</a>
+    <a href="#credentials" data-en="Credentials">자격</a>
+    <a href="#journey" data-en="Journey">이력</a>
+    <a href="#awards" data-en="Awards">수상</a>
+    <a href="#guestbook" data-en="Guestbook">방명록</a>
+    <a href="#contact" data-en="Contact">연락</a>
   </div>
-  <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false">
+  <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">
+    <span data-lang-label="ko">EN</span><span data-lang-label="en" style="display:none">한</span>
+  </button>
+  <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" data-en-aria="Open menu" aria-expanded="false">
     <span></span>
   </button>
 </nav>
@@ -1023,34 +1051,34 @@ footer .tag::before { background: var(--tomato); }
       <div class="hero-text">
         <div class="hero-badge reveal">
           <span class="dot"></span>
-          현재 재학 중 · 2026 포트폴리오
+          <span data-en="Currently enrolled · 2026 Portfolio">현재 재학 중 · 2026 포트폴리오</span>
         </div>
-        <h1 class="reveal">
+        <h1 class="reveal" data-en-html='<span class="line">Hi there<span class="wiggle">👋</span></span> <span class="line">I&apos;m <span class="swoop">Jinwoo Lee</span>,</span> <span class="line serif">bridging education</span> <span class="line">and health.</span>'>
           <span class="line">안녕하세요<span class="wiggle">👋</span></span>
           <span class="line">저는 <span class="swoop">이진우</span>,</span>
           <span class="line serif">교육과 건강을 잇는</span>
           <span class="line">사람이에요.</span>
         </h1>
-        <p class="hero-lede reveal">
+        <p class="hero-lede reveal" data-en-html='A double major in Youth Education &amp; Counseling and Health Management at Daegu Haany University. Known as <strong>someone who acts before they speak</strong>, I&apos;ve worked across planning, operations, and the field — treating feasibility as my highest value.'>
           대구한의대 청소년교육상담학과 + 보건관리학 복수전공.
           <strong>말보다 행동이 먼저인 사람</strong>이라는 평가를 받으며,
           기획·운영·현장을 모두 경험해 ‘실현가능성’을 가장 큰 가치로 삼고 있어요.
         </p>
         <div class="hero-cta reveal">
-          <a href="#journey" class="btn btn-primary">
+          <a href="#journey" class="btn btn-primary" data-en-html='My journey so far <span class="arr">→</span>'>
             지금까지 걸어온 길 <span class="arr">→</span>
           </a>
-          <a href="#contact" class="btn btn-ghost">
+          <a href="#contact" class="btn btn-ghost" data-en-html='Let&apos;s talk <span class="arr">→</span>'>
             한번 이야기 나눠요 <span class="arr">→</span>
           </a>
         </div>
       </div>
 
       <div class="hero-art reveal">
-        <div class="sticker s1">🎯 청소년지도사 2급</div>
-        <div class="sticker s2">💚 보건교육사</div>
-        <div class="sticker s3">🌱 평점 4.35</div>
-        <div class="sticker s4">✨ 6년차</div>
+        <div class="sticker s1" data-en="🎯 Youth Counselor Lv.2">🎯 청소년지도사 2급</div>
+        <div class="sticker s2" data-en="💚 Health Educator">💚 보건교육사</div>
+        <div class="sticker s3" data-en="🌱 GPA 4.35">🌱 평점 4.35</div>
+        <div class="sticker s4" data-en="✨ 6+ years">✨ 6년차</div>
         <div class="photo-card">
           <img src="assets/profile.jpg" alt="이진우 프로필" loading="eager" />
         </div>
@@ -1078,56 +1106,56 @@ footer .tag::before { background: var(--tomato); }
 <!-- ─────────────────────────── MARQUEE ─────────────────────────── -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>청소년교육상담</span>
-    <span>보건관리학</span>
-    <span>현장기획</span>
-    <span>영상제작</span>
-    <span>리더십</span>
-    <span>또래상담</span>
-    <span>청소년교육상담</span>
-    <span>보건관리학</span>
-    <span>현장기획</span>
-    <span>영상제작</span>
-    <span>리더십</span>
-    <span>또래상담</span>
+    <span data-en="Youth Counseling">청소년교육상담</span>
+    <span data-en="Health Management">보건관리학</span>
+    <span data-en="Field Planning">현장기획</span>
+    <span data-en="Video Production">영상제작</span>
+    <span data-en="Leadership">리더십</span>
+    <span data-en="Peer Counseling">또래상담</span>
+    <span data-en="Youth Counseling">청소년교육상담</span>
+    <span data-en="Health Management">보건관리학</span>
+    <span data-en="Field Planning">현장기획</span>
+    <span data-en="Video Production">영상제작</span>
+    <span data-en="Leadership">리더십</span>
+    <span data-en="Peer Counseling">또래상담</span>
   </div>
 </div>
 
 <!-- ─────────────────────────── ABOUT (Bento) ─────────────────────────── -->
 <section id="about">
   <div class="wrap">
-    <div class="tag reveal">소개</div>
-    <h2 class="section-title reveal">숫자로 보는 <em>나.</em></h2>
-    <p class="section-intro reveal">
+    <div class="tag reveal" data-en="About">소개</div>
+    <h2 class="section-title reveal" data-en-html='By the <em>numbers.</em>'>숫자로 보는 <em>나.</em></h2>
+    <p class="section-intro reveal" data-en="A trajectory that doesn't fit into one resume line — laid out in a handful of friendly cards. Big or small, every one of these is something I actually did.">
       이력서 한 줄로 요약되지 않는 궤적을, 귀여운 카드 몇 개로 정리했어요.
       작은 것부터 큰 것까지 — 모두 진짜 해온 일입니다.
     </p>
 
     <div class="bento">
       <div class="bento-item b-gpa reveal">
-        <div class="bento-kicker">평점평균 · 2025-1</div>
+        <div class="bento-kicker" data-en="GPA · 2025 Spring">평점평균 · 2025-1</div>
         <div class="bento-big">4.35<sup>/ 4.5</sup></div>
-        <div class="bento-label">복수전공을 병행하면서도 상위권을 놓치지 않았어요.</div>
+        <div class="bento-label" data-en="Kept a top-tier GPA while running a double major.">복수전공을 병행하면서도 상위권을 놓치지 않았어요.</div>
       </div>
       <div class="bento-item b-years reveal">
-        <div class="bento-kicker">청소년 활동 경력</div>
-        <div class="bento-big">6<span class="serif">+ 년</span></div>
-        <div class="bento-label">고등학생 시절 청운위부터 지금까지 꾸준히.</div>
+        <div class="bento-kicker" data-en="Youth work experience">청소년 활동 경력</div>
+        <div class="bento-big" data-en-html='6<span class="serif">+ yrs</span>'>6<span class="serif">+ 년</span></div>
+        <div class="bento-label" data-en="From the high school youth council all the way to now — no gaps.">고등학생 시절 청운위부터 지금까지 꾸준히.</div>
       </div>
       <div class="bento-item b-award reveal">
         <span class="bento-emoji">🏆</span>
-        <div class="bento-big">3<sup>회</sup></div>
-        <div class="bento-label">공모전 수상</div>
+        <div class="bento-big" data-en-html='3<sup>wins</sup>'>3<sup>회</sup></div>
+        <div class="bento-label" data-en="Contest wins">공모전 수상</div>
       </div>
       <div class="bento-item b-cert reveal">
         <span class="bento-emoji">📜</span>
-        <div class="bento-big">2<sup>개</sup></div>
-        <div class="bento-label">국가 전문 자격</div>
+        <div class="bento-big" data-en-html='2<sup>certs</sup>'>2<sup>개</sup></div>
+        <div class="bento-label" data-en="National certifications">국가 전문 자격</div>
       </div>
       <div class="bento-item b-lang reveal">
         <span class="bento-emoji">🎬</span>
         <div class="bento-big">+</div>
-        <div class="bento-label">영상 촬영 · 편집 실무</div>
+        <div class="bento-label" data-en="Video shooting &amp; editing">영상 촬영 · 편집 실무</div>
       </div>
     </div>
   </div>
@@ -1136,9 +1164,9 @@ footer .tag::before { background: var(--tomato); }
 <!-- ─────────────────────────── CREDENTIALS ─────────────────────────── -->
 <section id="credentials">
   <div class="wrap">
-    <div class="tag reveal">학력 · 자격</div>
-    <h2 class="section-title reveal">두 분야를 <em>한 눈으로</em> 봐요.</h2>
-    <p class="section-intro reveal">
+    <div class="tag reveal" data-en="Education · Credentials">학력 · 자격</div>
+    <h2 class="section-title reveal" data-en-html='Two fields, <em>one view.</em>'>두 분야를 <em>한 눈으로</em> 봐요.</h2>
+    <p class="section-intro reveal" data-en-html='Two majors that look different, but what they both taught me was <strong>&#8220;how to design.&#8221;</strong><br />Tracing root causes and letting ideas branch out — that&apos;s the biggest harvest from both sides. 🎨'>
       서로 달라 보이는 두 전공이지만, 공통적으로 배운 건 <strong>‘설계하는 법’</strong>이었어요.<br />
       원인을 찾아 뻗어나가며 생각을 넓히는 방식 — 그게 두 축에서 얻은 가장 큰 수확입니다. 🎨
     </p>
@@ -1146,23 +1174,23 @@ footer .tag::before { background: var(--tomato); }
     <div class="creds">
       <div class="cred-card reveal">
         <span class="cred-emoji">🧠</span>
-        <div class="cred-title">청소년교육상담학</div>
-        <div class="cred-sub">대구한의대 본전공. 청소년 발달, 상담기법, 프로그램 설계.</div>
+        <div class="cred-title" data-en="Youth Education &amp; Counseling">청소년교육상담학</div>
+        <div class="cred-sub" data-en="Primary major at Daegu Haany University. Youth development, counseling techniques, and program design.">대구한의대 본전공. 청소년 발달, 상담기법, 프로그램 설계.</div>
       </div>
       <div class="cred-card reveal">
         <span class="cred-emoji">🌿</span>
-        <div class="cred-title">보건관리학</div>
-        <div class="cred-sub">복수전공. 건강증진 프로그램과 지역사회 보건 실무.</div>
+        <div class="cred-title" data-en="Health Management">보건관리학</div>
+        <div class="cred-sub" data-en="Double major. Health promotion programs and community health practice.">복수전공. 건강증진 프로그램과 지역사회 보건 실무.</div>
       </div>
       <div class="cred-card reveal">
         <span class="cred-emoji">🎯</span>
-        <div class="cred-title">청소년지도사 2급</div>
-        <div class="cred-sub">국가 전문 자격. 청소년 현장·행사·프로그램 운영 권한.</div>
+        <div class="cred-title" data-en="Youth Counselor, Grade 2">청소년지도사 2급</div>
+        <div class="cred-sub" data-en="National certification. Licensed to run youth sites, events, and programs.">국가 전문 자격. 청소년 현장·행사·프로그램 운영 권한.</div>
       </div>
       <div class="cred-card reveal">
         <span class="cred-emoji">💚</span>
-        <div class="cred-title">보건교육사</div>
-        <div class="cred-sub">국가 전문 자격. 건강교육 캠페인과 보건 콘텐츠 기획.</div>
+        <div class="cred-title" data-en="Health Educator">보건교육사</div>
+        <div class="cred-sub" data-en="National certification. Health education campaigns and content planning.">국가 전문 자격. 건강교육 캠페인과 보건 콘텐츠 기획.</div>
       </div>
     </div>
   </div>
@@ -1171,203 +1199,203 @@ footer .tag::before { background: var(--tomato); }
 <!-- ─────────────────────────── JOURNEY ─────────────────────────── -->
 <section id="journey">
   <div class="wrap">
-    <div class="tag reveal">발자취</div>
-    <h2 class="section-title reveal">걸어온 길, <em>하나씩.</em></h2>
-    <p class="section-intro reveal">
+    <div class="tag reveal" data-en="Footsteps">발자취</div>
+    <h2 class="section-title reveal" data-en-html='The path I&apos;ve walked, <em>step by step.</em>'>걸어온 길, <em>하나씩.</em></h2>
+    <p class="section-intro reveal" data-en="On campus and off, short-term and long-term, fieldwork and desk work — experience built up little by little at every level.">
       교내와 교외, 단기와 장기, 현장과 사무 — 모든 층위에서 조금씩 쌓아온 경험들이에요.
     </p>
 
     <div class="timeline">
 
       <div class="tl-item reveal">
-        <span class="tl-year">2026 · 올해</span>
-        <div class="tl-title">국가자격 취득 · 졸업 · AI 활용 🚀</div>
-        <div class="tl-desc">청소년지도사 2급·보건교육사 국가자격을 취득하고 대구한의대를 졸업합니다. AI 도구를 실무 기획에 적극 접목 중이에요.</div>
+        <span class="tl-year" data-en="2026 · This year">2026 · 올해</span>
+        <div class="tl-title" data-en="National certs · Graduation · AI in practice 🚀">국가자격 취득 · 졸업 · AI 활용 🚀</div>
+        <div class="tl-desc" data-en="Earning Youth Counselor Lv.2 and Health Educator national certifications and graduating from Daegu Haany. Actively weaving AI tools into real-world planning.">청소년지도사 2급·보건교육사 국가자격을 취득하고 대구한의대를 졸업합니다. AI 도구를 실무 기획에 적극 접목 중이에요.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">국가자격</span>
-          <span class="tl-tag fresh">졸업</span>
-          <span class="tl-tag warm">AI 활용</span>
+          <span class="tl-tag pop" data-en="National certs">국가자격</span>
+          <span class="tl-tag fresh" data-en="Graduation">졸업</span>
+          <span class="tl-tag warm" data-en="AI in practice">AI 활용</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2025. 11</span>
-        <div class="tl-title">학생 e-포트폴리오 경진대회 <em>최우수상</em> 🏆</div>
-        <div class="tl-desc">대구한의대 학생지원팀 주최. 4년간의 학업·활동·성과를 한 권의 포트폴리오로 엮어 제출했어요.</div>
+        <div class="tl-title" data-en-html='Student e-Portfolio Contest — <em>Grand Prize</em> 🏆'>학생 e-포트폴리오 경진대회 <em>최우수상</em> 🏆</div>
+        <div class="tl-desc" data-en="Hosted by Daegu Haany Student Support Team. Wove four years of study, activities, and results into a single portfolio submission.">대구한의대 학생지원팀 주최. 4년간의 학업·활동·성과를 한 권의 포트폴리오로 엮어 제출했어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">최우수상</span>
-          <span class="tl-tag">포트폴리오</span>
+          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
+          <span class="tl-tag" data-en="Portfolio">포트폴리오</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2025. 11</span>
-        <div class="tl-title">굿네이버스 좋은이웃가게발굴단 아이디어 공모전 수상 🤝</div>
-        <div class="tl-desc">사단법인 굿네이버스 주관. 지역 상생을 위한 가게 발굴·연결 아이디어를 제안해 선정됐어요.</div>
+        <div class="tl-title" data-en="Good Neighbors 'Good Shop Discovery' Idea Contest — Winner 🤝">굿네이버스 좋은이웃가게발굴단 아이디어 공모전 수상 🤝</div>
+        <div class="tl-desc" data-en="Organized by Good Neighbors (NPO). Selected for an idea on discovering and connecting local shops for community co-prosperity.">사단법인 굿네이버스 주관. 지역 상생을 위한 가게 발굴·연결 아이디어를 제안해 선정됐어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag fresh">공모전</span>
-          <span class="tl-tag warm">지역상생</span>
+          <span class="tl-tag fresh" data-en="Contest">공모전</span>
+          <span class="tl-tag warm" data-en="Community">지역상생</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2025. 10</span>
-        <div class="tl-title">재맞고 아이디어 공모전 <em>최우수상</em></div>
-        <div class="tl-desc">대구한의대 대학일자리플러스센터 주관. 취업·진로 분야 실전 아이디어로 최우수상을 수상.</div>
+        <div class="tl-title" data-en-html='Career Idea Contest — <em>Grand Prize</em>'>재맞고 아이디어 공모전 <em>최우수상</em></div>
+        <div class="tl-desc" data-en="By Daegu Haany's University Job Plus Center. Won Grand Prize with a practical idea in career and employment.">대구한의대 대학일자리플러스센터 주관. 취업·진로 분야 실전 아이디어로 최우수상을 수상.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">최우수상</span>
-          <span class="tl-tag">진로기획</span>
+          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
+          <span class="tl-tag" data-en="Career planning">진로기획</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
-        <span class="tl-year">2025년 3-12월</span>
-        <div class="tl-title">기린봉사단 간부 (재위촉) 🧡</div>
-        <div class="tl-desc">대구한의대 공식 봉사단. 김장·교육봉사·영덕 산불지원·플로깅까지 폭넓게 운영 중이에요.</div>
+        <span class="tl-year" data-en="Mar–Dec 2025">2025년 3-12월</span>
+        <div class="tl-title" data-en="Giraffe Volunteer Corps — Officer (re-appointed) 🧡">기린봉사단 간부 (재위촉) 🧡</div>
+        <div class="tl-desc" data-en="Official volunteer corps at Daegu Haany. Running everything from kimchi drives and education volunteering to Yeongdeok wildfire relief and plogging.">대구한의대 공식 봉사단. 김장·교육봉사·영덕 산불지원·플로깅까지 폭넓게 운영 중이에요.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">리더십</span>
-          <span class="tl-tag">지역사회</span>
+          <span class="tl-tag pop" data-en="Leadership">리더십</span>
+          <span class="tl-tag" data-en="Community">지역사회</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2025. 07</span>
-        <div class="tl-title">이주배경청소년 예비실무자 교육과정 이수</div>
-        <div class="tl-desc">이주배경청소년지원재단 1·2차 과정 이수. 다문화 현장에 필요한 실무 역량을 체계적으로 학습했어요.</div>
+        <div class="tl-title" data-en="Trainee Program for Migrant-Background Youth Workers">이주배경청소년 예비실무자 교육과정 이수</div>
+        <div class="tl-desc" data-en="Completed phases 1 and 2 with the Migrant Youth Foundation. Systematically built the field skills needed for multicultural youth work.">이주배경청소년지원재단 1·2차 과정 이수. 다문화 현장에 필요한 실무 역량을 체계적으로 학습했어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag">다문화</span>
-          <span class="tl-tag fresh">실무교육</span>
+          <span class="tl-tag" data-en="Multicultural">다문화</span>
+          <span class="tl-tag fresh" data-en="Field training">실무교육</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2025. 06</span>
-        <div class="tl-title">FAT(회계실무) 2급 자격 취득 📊</div>
-        <div class="tl-desc">한국공인회계사회 주관. 기획자로서 예산·집행 감각까지 갖추기 위해 회계 실무 자격을 정식으로 취득했어요.</div>
+        <div class="tl-title" data-en="FAT (Accounting Practice) Lv.2 Certification 📊">FAT(회계실무) 2급 자격 취득 📊</div>
+        <div class="tl-desc" data-en="Organized by KICPA. Earned a formal accounting credential so my planning work carries real budget sense.">한국공인회계사회 주관. 기획자로서 예산·집행 감각까지 갖추기 위해 회계 실무 자격을 정식으로 취득했어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag warm">자격증</span>
-          <span class="tl-tag">실무역량</span>
+          <span class="tl-tag warm" data-en="Certification">자격증</span>
+          <span class="tl-tag" data-en="Practical skills">실무역량</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2025. 05</span>
-        <div class="tl-title">안동청소년박람회 자원봉사</div>
-        <div class="tl-desc">이주배경청소년지원재단 부스 운영 지원 · 다문화 청소년 현장 대응.</div>
-        <div class="tl-tags"><span class="tl-tag fresh">현장</span></div>
+        <div class="tl-title" data-en="Andong Youth Expo — Volunteer">안동청소년박람회 자원봉사</div>
+        <div class="tl-desc" data-en="Supported the Migrant Youth Foundation booth and handled on-site multicultural youth engagement.">이주배경청소년지원재단 부스 운영 지원 · 다문화 청소년 현장 대응.</div>
+        <div class="tl-tags"><span class="tl-tag fresh" data-en="Field">현장</span></div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2024. 11</span>
-        <div class="tl-title">LINC 3.0 생성형 AI 활용 공모전 <em>최우수상</em> 🤖</div>
-        <div class="tl-desc">대구한의대 산학연계교육지원센터 주관. AI 도구를 실제 기획·콘텐츠 제작에 접목한 사례로 최우수상을 받았어요.</div>
+        <div class="tl-title" data-en-html='LINC 3.0 Generative AI Contest — <em>Grand Prize</em> 🤖'>LINC 3.0 생성형 AI 활용 공모전 <em>최우수상</em> 🤖</div>
+        <div class="tl-desc" data-en="By Daegu Haany's Industry-Academia Center. Won Grand Prize with a case of applying AI tools to real planning and content production.">대구한의대 산학연계교육지원센터 주관. AI 도구를 실제 기획·콘텐츠 제작에 접목한 사례로 최우수상을 받았어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">최우수상</span>
-          <span class="tl-tag warm">AI 활용</span>
+          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
+          <span class="tl-tag warm" data-en="AI in practice">AI 활용</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2024. 10</span>
-        <div class="tl-title">청소년단체활동 <em>표창장</em> 🎖</div>
-        <div class="tl-desc">한국청소년단체협의회에서 수여. 장기간의 청소년 단체 활동과 현장 봉사를 공식적으로 인정받은 순간이에요.</div>
+        <div class="tl-title" data-en-html='Youth Organization Activities — <em>Commendation</em> 🎖'>청소년단체활동 <em>표창장</em> 🎖</div>
+        <div class="tl-desc" data-en="Awarded by the National Council of Youth Organizations in Korea. An official recognition of years of youth group activities and field volunteering.">한국청소년단체협의회에서 수여. 장기간의 청소년 단체 활동과 현장 봉사를 공식적으로 인정받은 순간이에요.</div>
         <div class="tl-tags">
-          <span class="tl-tag fresh">표창</span>
-          <span class="tl-tag">장기활동</span>
+          <span class="tl-tag fresh" data-en="Commendation">표창</span>
+          <span class="tl-tag" data-en="Long-term">장기활동</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
-        <span class="tl-year">2024. 09 — 2025. 02</span>
-        <div class="tl-title">K-MEDI 디지털교육센터 교내근로 🎬</div>
-        <div class="tl-desc">강의 영상 촬영과 영상편집을 전담. 교수자와 협업하여 온라인 강의 콘텐츠를 직접 만들었어요.</div>
+        <span class="tl-year" data-en="Sep 2024 — Feb 2025">2024. 09 — 2025. 02</span>
+        <div class="tl-title" data-en="K-MEDI Digital Learning Center — Campus Work 🎬">K-MEDI 디지털교육센터 교내근로 🎬</div>
+        <div class="tl-desc" data-en="In charge of filming and editing lecture videos. Worked hand-in-hand with professors to produce online course content.">강의 영상 촬영과 영상편집을 전담. 교수자와 협업하여 온라인 강의 콘텐츠를 직접 만들었어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag warm">영상제작</span>
-          <span class="tl-tag">콘텐츠</span>
+          <span class="tl-tag warm" data-en="Video production">영상제작</span>
+          <span class="tl-tag" data-en="Content">콘텐츠</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
-        <span class="tl-year">2023 — 2024. 04</span>
-        <div class="tl-title">군복무 · 또래상담병 🎖</div>
-        <div class="tl-desc">약 8개월간 또래상담병 임무 수행. 병영 내 심리지원과 갈등 중재 업무.</div>
-        <div class="tl-tags"><span class="tl-tag fresh">상담실무</span></div>
+        <span class="tl-year" data-en="2023 — Apr 2024">2023 — 2024. 04</span>
+        <div class="tl-title" data-en="Military Service · Peer Counseling Soldier 🎖">군복무 · 또래상담병 🎖</div>
+        <div class="tl-desc" data-en="Served roughly 8 months as a peer counseling soldier. Psychological support and conflict mediation inside the unit.">약 8개월간 또래상담병 임무 수행. 병영 내 심리지원과 갈등 중재 업무.</div>
+        <div class="tl-tags"><span class="tl-tag fresh" data-en="Counseling practice">상담실무</span></div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2022. 12</span>
-        <div class="tl-title">청소년 프로그램 공모전 <em>우수상</em></div>
-        <div class="tl-desc">경산시계림청소년수련원 주관. 로블록스 기반 청소년 캠페인을 기획·설계해 우수상을 받았어요.</div>
+        <div class="tl-title" data-en-html='Youth Program Contest — <em>Excellence Award</em>'>청소년 프로그램 공모전 <em>우수상</em></div>
+        <div class="tl-desc" data-en="By Gyeongsan Gyerim Youth Training Center. Designed a Roblox-based youth campaign and won the Excellence Award.">경산시계림청소년수련원 주관. 로블록스 기반 청소년 캠페인을 기획·설계해 우수상을 받았어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">우수상</span>
-          <span class="tl-tag warm">기획</span>
+          <span class="tl-tag pop" data-en="Excellence Award">우수상</span>
+          <span class="tl-tag warm" data-en="Planning">기획</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2022. 05</span>
-        <div class="tl-title">화랑정신 사진공모전 장려상 📷</div>
-        <div class="tl-desc">한국청소년화랑도연맹 주최. 청소년다운 시선으로 담은 사진 한 장이 장려상으로 이어졌어요.</div>
-        <div class="tl-tags"><span class="tl-tag">사진</span></div>
+        <div class="tl-title" data-en="Hwarang Spirit Photo Contest — Merit Award 📷">화랑정신 사진공모전 장려상 📷</div>
+        <div class="tl-desc" data-en="Hosted by the Korea Youth Hwarangdo League. A single photo taken through a youth's lens earned a Merit Award.">한국청소년화랑도연맹 주최. 청소년다운 시선으로 담은 사진 한 장이 장려상으로 이어졌어요.</div>
+        <div class="tl-tags"><span class="tl-tag" data-en="Photography">사진</span></div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2022. 02</span>
-        <div class="tl-title">e러닝 우수사례 수기공모전 <em>대상</em> 🏅</div>
-        <div class="tl-desc">대구한의대 원격교육지원센터 주관. 온라인 학습 경험을 진솔하게 풀어낸 수기로 대상을 받았어요.</div>
+        <div class="tl-title" data-en-html='e-Learning Case Essay Contest — <em>Top Prize</em> 🏅'>e러닝 우수사례 수기공모전 <em>대상</em> 🏅</div>
+        <div class="tl-desc" data-en="By Daegu Haany Distance Learning Center. A candid essay on my online learning experience that took the Top Prize.">대구한의대 원격교육지원센터 주관. 온라인 학습 경험을 진솔하게 풀어낸 수기로 대상을 받았어요.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">대상</span>
-          <span class="tl-tag">글쓰기</span>
+          <span class="tl-tag pop" data-en="Top Prize">대상</span>
+          <span class="tl-tag" data-en="Writing">글쓰기</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2021. 11</span>
-        <div class="tl-title">jump-up 랜선공모전 <em>최우수상</em></div>
-        <div class="tl-desc">대학혁신평가팀 주관. 신입생이던 시기에 받은 첫 교내 최우수상 — 공모전에 본격적으로 빠지게 된 출발점이에요.</div>
+        <div class="tl-title" data-en-html='Jump-Up Online Contest — <em>Grand Prize</em>'>jump-up 랜선공모전 <em>최우수상</em></div>
+        <div class="tl-desc" data-en="By the University Innovation Team. My very first campus Grand Prize as a freshman — the starting point of my contest habit.">대학혁신평가팀 주관. 신입생이던 시기에 받은 첫 교내 최우수상 — 공모전에 본격적으로 빠지게 된 출발점이에요.</div>
         <div class="tl-tags">
-          <span class="tl-tag pop">최우수상</span>
-          <span class="tl-tag fresh">첫 수상</span>
+          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
+          <span class="tl-tag fresh" data-en="First win">첫 수상</span>
         </div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2021 — 2023</span>
-        <div class="tl-title">기린봉사단 단원 · 간부</div>
-        <div class="tl-desc">3년간 대학 공식 봉사단으로 활동. 2년은 간부로 팀을 리딩했어요.</div>
-        <div class="tl-tags"><span class="tl-tag pop">리더십</span></div>
+        <div class="tl-title" data-en="Giraffe Volunteer Corps — Member · Officer">기린봉사단 단원 · 간부</div>
+        <div class="tl-desc" data-en="Three years in the university's official volunteer corps. Led the team as an officer for two of them.">3년간 대학 공식 봉사단으로 활동. 2년은 간부로 팀을 리딩했어요.</div>
+        <div class="tl-tags"><span class="tl-tag pop" data-en="Leadership">리더십</span></div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2021 — 2023</span>
-        <div class="tl-title">수성구청소년문화의집 청운위 부위원장</div>
-        <div class="tl-desc">청소년운영위원회 위원 1년 · 부위원장 1년. 지역 청소년 정책 의견 수렴과 프로그램 제안을 담당.</div>
-        <div class="tl-tags"><span class="tl-tag">정책·기획</span></div>
+        <div class="tl-title" data-en="Suseong Youth Culture Center — Youth Council Vice Chair">수성구청소년문화의집 청운위 부위원장</div>
+        <div class="tl-desc" data-en="One year as a member, one year as Vice Chair. Gathered local youth-policy input and proposed new programs.">청소년운영위원회 위원 1년 · 부위원장 1년. 지역 청소년 정책 의견 수렴과 프로그램 제안을 담당.</div>
+        <div class="tl-tags"><span class="tl-tag" data-en="Policy · Planning">정책·기획</span></div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2021 — 2024</span>
-        <div class="tl-title">지역 일일 부스 운영</div>
-        <div class="tl-desc">228공원·반월당 일대 청소년 대상 일일 부스 기획과 진행. 현장 운영 감각을 키운 시기.</div>
+        <div class="tl-title" data-en="Local Day-Booth Operations">지역 일일 부스 운영</div>
+        <div class="tl-desc" data-en="Planned and ran one-day youth booths around 2·28 Park and Banwoldang. A period that sharpened my on-site instincts.">228공원·반월당 일대 청소년 대상 일일 부스 기획과 진행. 현장 운영 감각을 키운 시기.</div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2022</span>
-        <div class="tl-title">수성구청소년수련관 동반자 활동</div>
-        <div class="tl-desc">수련관 주체 행사 부스 운행. 사전준비와 정리 지원 (총 3~4회).</div>
+        <div class="tl-title" data-en="Suseong Youth Training Center — Companion Program">수성구청소년수련관 동반자 활동</div>
+        <div class="tl-desc" data-en="Ran booths at center-led events. Supported prep and cleanup (3–4 events total).">수련관 주체 행사 부스 운행. 사전준비와 정리 지원 (총 3~4회).</div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2018 — 2021</span>
-        <div class="tl-title">남지청소년문화의집 청운위 부위원장 🌱</div>
-        <div class="tl-desc">위원 2년 · 부위원장 1년. 청소년 당사자로서 청소년 시설 운영에 처음 참여한 현장.</div>
-        <div class="tl-tags"><span class="tl-tag warm">최초경험</span></div>
+        <div class="tl-title" data-en="Namji Youth Culture Center — Youth Council Vice Chair 🌱">남지청소년문화의집 청운위 부위원장 🌱</div>
+        <div class="tl-desc" data-en="Two years as member, one as Vice Chair. My very first time shaping a youth facility as a youth myself.">위원 2년 · 부위원장 1년. 청소년 당사자로서 청소년 시설 운영에 처음 참여한 현장.</div>
+        <div class="tl-tags"><span class="tl-tag warm" data-en="First experience">최초경험</span></div>
       </div>
 
       <div class="tl-item reveal">
         <span class="tl-year">2019. 11</span>
-        <div class="tl-title">전국청소년운영위원회 워크숍</div>
-        <div class="tl-desc">전국 단위 청소년운영위원회 교류와 우수 사례 학습.</div>
+        <div class="tl-title" data-en="National Youth Council Workshop">전국청소년운영위원회 워크숍</div>
+        <div class="tl-desc" data-en="Exchange and best-practice learning across nationwide Youth Councils.">전국 단위 청소년운영위원회 교류와 우수 사례 학습.</div>
       </div>
 
     </div>
@@ -1377,21 +1405,21 @@ footer .tag::before { background: var(--tomato); }
 <!-- ─────────────────────────── QUOTE ─────────────────────────── -->
 <div class="quote">
   <div class="wrap">
-    <blockquote class="reveal">
+    <blockquote class="reveal" data-en-html='When I spot a problem, I dig into it <em>proactively</em><br />and find joy in <em>turning ideas into action</em>,<br />however long it takes.'>
       문제를 발견하면 <em>주도적으로</em> 고민하고,<br />
       기어이 <em>실행에 옮기는</em> 과정에서<br />
       즐거움을 느껴요.
     </blockquote>
-    <cite class="reveal">— 이진우의 작업 철학</cite>
+    <cite class="reveal" data-en="— Jinwoo Lee's work philosophy">— 이진우의 작업 철학</cite>
   </div>
 </div>
 
 <!-- ─────────────────────────── AWARDS ─────────────────────────── -->
 <section id="awards">
   <div class="wrap">
-    <div class="tag reveal">수상</div>
-    <h2 class="section-title reveal">증명해 온 <em>기획력.</em></h2>
-    <p class="section-intro reveal">
+    <div class="tag reveal" data-en="Awards">수상</div>
+    <h2 class="section-title reveal" data-en-html='Proven <em>planning power.</em>'>증명해 온 <em>기획력.</em></h2>
+    <p class="section-intro reveal" data-en="A field, a team, and a result. A track record showing that ideas turned into action. 🏆">
       현장이 있고, 팀이 있고, 결과가 있습니다. 아이디어가 실행으로 이어졌음을 보여주는 트랙 레코드 🏆
     </p>
 
@@ -1399,23 +1427,23 @@ footer .tag::before { background: var(--tomato); }
       <div class="award reveal">
         <span class="award-year">2023</span>
         <span class="award-medal">🥇</span>
-        <div class="award-rank">금상</div>
-        <div class="award-title">대학혁신지원사업 UCC 공모전</div>
-        <div class="award-host">대구한의대학교</div>
+        <div class="award-rank" data-en="Gold">금상</div>
+        <div class="award-title" data-en="University Innovation Support UCC Contest">대학혁신지원사업 UCC 공모전</div>
+        <div class="award-host" data-en="Daegu Haany University">대구한의대학교</div>
       </div>
       <div class="award reveal">
         <span class="award-year">2022</span>
         <span class="award-medal">🌟</span>
-        <div class="award-rank">우수상</div>
-        <div class="award-title">K-MOOC 우수사례 공모전</div>
-        <div class="award-host">교육부 · 국가평생교육진흥원</div>
+        <div class="award-rank" data-en="Excellence">우수상</div>
+        <div class="award-title" data-en="K-MOOC Best Case Contest">K-MOOC 우수사례 공모전</div>
+        <div class="award-host" data-en="Ministry of Education · NILE">교육부 · 국가평생교육진흥원</div>
       </div>
       <div class="award reveal">
         <span class="award-year">2021</span>
         <span class="award-medal">💡</span>
-        <div class="award-rank">장려상</div>
-        <div class="award-title">대학 창업경진대회</div>
-        <div class="award-host">대구한의대학교</div>
+        <div class="award-rank" data-en="Merit">장려상</div>
+        <div class="award-title" data-en="University Startup Competition">대학 창업경진대회</div>
+        <div class="award-host" data-en="Daegu Haany University">대구한의대학교</div>
       </div>
     </div>
   </div>
@@ -1424,9 +1452,9 @@ footer .tag::before { background: var(--tomato); }
 <!-- ─────────────────────────── GUESTBOOK ─────────────────────────── -->
 <section id="guestbook">
   <div class="wrap">
-    <div class="tag reveal">방명록</div>
-    <h2 class="section-title reveal">흔적 하나 <em>남기고</em> 가요 ✍️</h2>
-    <p class="section-intro reveal">
+    <div class="tag reveal" data-en="Guestbook">방명록</div>
+    <h2 class="section-title reveal" data-en-html='<em>Leave</em> a little mark ✍️'>흔적 하나 <em>남기고</em> 가요 ✍️</h2>
+    <p class="section-intro reveal" data-en-html='One line is plenty. Cheers, suggestions, or just a hello — anything is welcome. <strong>Sign in with your GitHub account</strong> and leave a note below.'>
       한 줄이라도 좋아요. 응원·제안·그냥 안부 — 무엇이든 환영합니다.
       <strong>GitHub 계정으로 로그인</strong> 후 아래에 남겨주세요.
     </p>
@@ -1456,8 +1484,8 @@ footer .tag::before { background: var(--tomato); }
 <!-- ─────────────────────────── CONTACT FOOTER ─────────────────────────── -->
 <footer id="contact">
   <div class="wrap">
-    <div class="tag reveal">연락</div>
-    <h2 class="footer-cta reveal">
+    <div class="tag reveal" data-en="Contact">연락</div>
+    <h2 class="footer-cta reveal" data-en-html='Want to build a <em>youth project</em><br />together?'>
       청소년에 대한 <em>프로젝트</em>,<br />
       같이 해보실래요?
     </h2>
@@ -1470,15 +1498,15 @@ footer .tag::before { background: var(--tomato); }
     <div class="footer-meta">
       <div class="col">
         <h4>Based in</h4>
-        <p>대한민국 대구 · 경북 일원</p>
+        <p data-en="Daegu · North Gyeongsang, Korea">대한민국 대구 · 경북 일원</p>
       </div>
       <div class="col">
         <h4>Available for</h4>
-        <p>청소년·교육·보건 기획 협업 · 영상 제작</p>
+        <p data-en="Youth · education · health planning · video production">청소년·교육·보건 기획 협업 · 영상 제작</p>
       </div>
       <div class="col">
         <h4>Status</h4>
-        <p>재학 중 · 취업 준비 🌱</p>
+        <p data-en="Student · job hunting 🌱">재학 중 · 취업 준비 🌱</p>
       </div>
     </div>
 
@@ -1718,13 +1746,13 @@ footer .tag::before { background: var(--tomato); }
     }
   });
 
-  // 👋 클릭 → 오른쪽 상단에서 스윙하며 날아오기
+  // 👋 클릭 → 오른쪽 상단에서 스윙하며 날아오기 (이벤트 위임 — 언어 토글 후에도 동작)
   (function setupWaveFly() {
-    const wiggle = document.querySelector(".hero h1 .wiggle");
-    if (!wiggle) return;
     let flying = false;
 
-    wiggle.addEventListener("click", () => {
+    document.addEventListener("click", (e) => {
+      const wiggle = e.target.closest(".hero h1 .wiggle");
+      if (!wiggle) return;
       if (flying || prefersReduced) return;
       flying = true;
 
@@ -1814,6 +1842,63 @@ footer .tag::before { background: var(--tomato); }
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
   // 사진 카드는 :hover 시 CSS shake 애니메이션으로 처리
+
+  // ──────────────────────────────────────────────
+  // 한/영 토글
+  // ──────────────────────────────────────────────
+  (function setupLangToggle() {
+    const btn = document.getElementById("langToggle");
+    if (!btn) return;
+
+    const applyLang = (lang) => {
+      document.documentElement.lang = lang;
+
+      // innerHTML 스왑 대상 (em, strong, span 등 내부 태그 보존)
+      document.querySelectorAll("[data-en-html]").forEach((el) => {
+        if (!el.dataset.koHtml) el.dataset.koHtml = el.innerHTML.trim();
+        el.innerHTML = lang === "en" ? el.dataset.enHtml : el.dataset.koHtml;
+      });
+
+      // textContent 스왑 대상 (단순 텍스트 노드)
+      document.querySelectorAll("[data-en]:not([data-en-html])").forEach((el) => {
+        if (!el.dataset.ko) el.dataset.ko = el.textContent.trim();
+        el.textContent = lang === "en" ? el.dataset.en : el.dataset.ko;
+      });
+
+      // aria-label 등 속성형 번역
+      document.querySelectorAll("[data-en-aria]").forEach((el) => {
+        if (!el.dataset.koAria) el.dataset.koAria = el.getAttribute("aria-label") || "";
+        el.setAttribute("aria-label", lang === "en" ? el.dataset.enAria : el.dataset.koAria);
+      });
+
+      // 토글 버튼 레이블 (EN ↔ 한)
+      document.querySelectorAll("[data-lang-label]").forEach((el) => {
+        el.style.display = el.dataset.langLabel === lang ? "none" : "inline";
+      });
+
+      // Giscus 언어 동기화 (iframe postMessage)
+      const giscus = document.querySelector("iframe.giscus-frame");
+      if (giscus && giscus.contentWindow) {
+        try {
+          giscus.contentWindow.postMessage(
+            { giscus: { setConfig: { lang: lang === "en" ? "en" : "ko" } } },
+            "https://giscus.app"
+          );
+        } catch (e) { /* 무시 */ }
+      }
+
+      localStorage.setItem("lang", lang);
+    };
+
+    btn.addEventListener("click", () => {
+      const next = document.documentElement.lang === "en" ? "ko" : "en";
+      applyLang(next);
+    });
+
+    // 재방문 시 저장된 언어 복원
+    const saved = localStorage.getItem("lang");
+    if (saved === "en") applyLang("en");
+  })();
 </script>
 
 </body>
