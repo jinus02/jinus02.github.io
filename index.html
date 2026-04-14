@@ -293,7 +293,50 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   z-index: 3;
 }
 .photo-card img { width: 100%; height: 100%; object-fit: cover; }
-.photo-card:hover { transform: rotate(-2deg) scale(1.02); }
+.photo-card:hover {
+  animation: photoShake 0.55s ease-in-out infinite;
+}
+@keyframes photoShake {
+  0%, 100% { transform: rotate(-4deg) translate(0, 0); }
+  15%      { transform: rotate(-7deg) translate(-4px, -2px); }
+  30%      { transform: rotate(-1deg) translate(4px, 2px); }
+  45%      { transform: rotate(-6deg) translate(-3px, 3px); }
+  60%      { transform: rotate(-2deg) translate(3px, -3px); }
+  75%      { transform: rotate(-5deg) translate(-2px, 2px); }
+  90%      { transform: rotate(-3deg) translate(2px, -1px); }
+}
+
+.hero-social {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 6;
+}
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--cream);
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: 999px;
+  font-family: "Space Grotesk", "Pretendard", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 0 0 2px var(--ink), 4px 4px 0 var(--ink);
+  transition: transform .25s cubic-bezier(0.19, 1, 0.22, 1), box-shadow .25s, background .25s, color .25s;
+}
+.social-btn:hover {
+  transform: translateY(-3px) rotate(-2deg);
+  box-shadow: 0 0 0 2px var(--ink), 6px 7px 0 var(--ink);
+}
+.social-btn.ig:hover { background: var(--rose); color: var(--cream); }
+.social-btn.li:hover { background: var(--blueberry); color: var(--cream); }
+.social-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 
 .sticker {
   position: absolute;
@@ -1010,6 +1053,22 @@ footer .tag::before { background: var(--tomato); }
         <div class="sticker s4">✨ 6년차</div>
         <div class="photo-card">
           <img src="assets/profile.jpg" alt="이진우 프로필" loading="eager" />
+        </div>
+        <div class="hero-social">
+          <a href="https://www.instagram.com/jinus_02/" target="_blank" rel="noopener noreferrer" class="social-btn ig" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/in/%EC%A7%84%EC%9A%B0-jinwoo-lee-%EC%9D%B4-477b8b3a4/" target="_blank" rel="noopener noreferrer" class="social-btn li" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path>
+            </svg>
+            LinkedIn
+          </a>
         </div>
       </div>
     </div>
@@ -1754,20 +1813,7 @@ footer .tag::before { background: var(--tomato); }
   );
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-  // 사진 카드 3D 틸트
-  const photoCard = document.querySelector(".photo-card");
-  if (photoCard && window.matchMedia("(hover: hover)").matches) {
-    const art = document.querySelector(".hero-art");
-    art.addEventListener("mousemove", (e) => {
-      const r = art.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      photoCard.style.transform = `rotate(${-4 + x * 6}deg) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
-    });
-    art.addEventListener("mouseleave", () => {
-      photoCard.style.transform = "";
-    });
-  }
+  // 사진 카드는 :hover 시 CSS shake 애니메이션으로 처리
 </script>
 
 </body>
