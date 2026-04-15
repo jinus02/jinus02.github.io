@@ -563,6 +563,9 @@ section { padding: clamp(80px, 12vw, 140px) 0; position: relative; }
 .cred-card:nth-child(2):hover { background: var(--mint); }
 .cred-card:nth-child(3):hover { background: var(--rose); }
 .cred-card:nth-child(4):hover { background: var(--blueberry); color: var(--cream); }
+.cred-card:nth-child(5):hover { background: var(--tangerine); }
+.cred-card:nth-child(6):hover { background: var(--mint); }
+.cred-card:nth-child(7):hover { background: var(--rose); }
 
 .cred-emoji {
   font-size: 42px;
@@ -763,6 +766,61 @@ section { padding: clamp(80px, 12vw, 140px) 0; position: relative; }
   margin-bottom: 6px;
 }
 .award-host { font-size: 13px; opacity: .7; }
+
+/* ── Award List ── */
+.award-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 40px;
+}
+.award-row {
+  display: grid;
+  grid-template-columns: 56px 80px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(27,27,31,.08);
+  transition: background .3s;
+}
+.award-row:first-child { border-top: 1px solid rgba(27,27,31,.08); }
+.award-row:hover { background: rgba(27,27,31,.03); }
+.award-row-year {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: .5;
+}
+.award-row-rank {
+  font-family: "Space Grotesk", "Pretendard", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-align: center;
+  white-space: nowrap;
+}
+.award-row-rank.top    { background: var(--tangerine); color: var(--ink); }
+.award-row-rank.grand  { background: var(--tomato); color: var(--cream); }
+.award-row-rank.excel  { background: var(--mint); color: var(--ink); }
+.award-row-rank.merit  { background: var(--cream-2); color: var(--ink); }
+.award-row-rank.commend { background: var(--blueberry); color: var(--cream); }
+.award-row-rank.gold   { background: var(--tangerine); color: var(--ink); }
+.award-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.award-row-title {
+  font-family: "Space Grotesk", "Pretendard", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.award-row-host {
+  font-size: 12px;
+  opacity: .5;
+}
 .award-year {
   position: absolute; top: 24px; right: 24px;
   padding: 4px 12px;
@@ -957,10 +1015,10 @@ footer .tag::before { background: var(--tomato); }
 .reveal:nth-child(4) { transition-delay: .24s; }
 
 /* ═══════════════════════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — Tablet
    ═══════════════════════════════════════════════════════════ */
 @media (max-width: 960px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 80px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 60px; }
   .hero-art { max-width: 420px; margin: 0 auto; }
   .bento { grid-template-columns: repeat(2, 1fr); }
   .bento-item.b-gpa,
@@ -971,15 +1029,30 @@ footer .tag::before { background: var(--tomato); }
   .creds { grid-template-columns: repeat(2, 1fr); }
   .awards { grid-template-columns: 1fr; }
   .award { transform: rotate(0); }
+  .award-row { grid-template-columns: 48px 72px 1fr; gap: 10px; padding: 14px 16px; }
+  .award-row-host { display: none; }
+  .quote::before { font-size: 380px; top: -40px; }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — Large phone
+   ═══════════════════════════════════════════════════════════ */
 @media (max-width: 720px) {
+  body { font-size: 16px; }
   body::before { background-size: 18px 18px; }
 
-  #nav { padding: 6px 6px 6px 16px; gap: 4px; }
+  .wrap { padding: 0 20px; }
+
+  #nav {
+    top: max(14px, env(safe-area-inset-top, 0px));
+    padding: 6px 6px 6px 16px;
+    gap: 4px;
+    max-width: calc(100vw - 24px);
+  }
+  .logo { font-size: 20px; }
   .nav-links {
     position: fixed;
-    top: 80px; right: 16px; left: 16px;
+    top: 78px; right: 12px; left: 12px;
     flex-direction: column;
     gap: 4px;
     padding: 16px;
@@ -993,21 +1066,121 @@ footer .tag::before { background: var(--tomato); }
   .nav-links.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
   .nav-links a { display: block; padding: 14px 20px; font-size: 16px; }
   .nav-toggle { display: flex; }
+  .lang-toggle { min-width: 40px; height: 34px; font-size: 11px; padding: 0 10px; }
 
-  .hero { padding: 120px 0 60px; }
-  .hero-cta { width: 100%; }
-  .btn { width: 100%; justify-content: center; }
+  .hero { padding: 110px 0 56px; min-height: auto; }
+  .hero-badge { font-size: 12px; padding: 8px 14px; margin-bottom: 24px; }
+  .hero h1 { margin-bottom: 28px; line-height: 1; }
+  .hero-lede { margin-bottom: 32px; max-width: 100%; }
+  .hero-cta { width: 100%; gap: 10px; }
+  .btn { width: 100%; justify-content: center; padding: 15px 22px; }
 
-  .marquee { margin: 40px -20px; }
+  /* Hero art — smaller stickers, contained blobs */
+  .hero-art { max-width: 320px; }
+  .sticker { font-size: 11px; padding: 8px 12px; }
+  .sticker.s1 { top: 0; left: 0; }
+  .sticker.s2 { top: 14%; right: 0; }
+  .sticker.s3 { bottom: 12%; left: 0; }
+  .sticker.s4 { bottom: 2%; right: 2%; }
+  .blob.b1 { width: 200px; height: 200px; filter: blur(60px); }
+  .blob.b2 { width: 180px; height: 180px; filter: blur(60px); }
+  .social-btn { padding: 9px 14px; font-size: 12px; }
+  .social-btn svg { width: 16px; height: 16px; }
 
-  .creds { grid-template-columns: 1fr; }
+  .marquee { margin: 32px -20px; padding: 16px 0; }
+  .marquee-track span { font-size: 28px; }
+
+  /* Bento — single column, tighter */
+  .bento { grid-template-columns: 1fr; gap: 14px; }
+  .bento-item { padding: 26px 24px; border-radius: 20px; }
+  .bento-big { font-size: clamp(2.6rem, 14vw, 4rem); }
+  .bento-emoji { font-size: 40px; }
+
+  .creds { grid-template-columns: 1fr; gap: 14px; }
+  .cred-card { padding: 28px 24px; border-radius: 20px; }
+
+  .awards { gap: 16px; }
+  .award { padding: 32px 26px; }
+  .award-medal { font-size: 54px; }
+  .award-rank { font-size: 26px; }
+  .award-title { font-size: 16px; }
+  .award-year { top: 18px; right: 18px; }
 
   .timeline::before { left: 14px; }
-  .tl-item { padding-left: 50px; }
-  .tl-item::before { left: 6px; width: 18px; height: 18px; }
+  .tl-item { padding: 0 0 32px 50px; }
+  .tl-item::before { left: 6px; top: 12px; width: 18px; height: 18px; }
+  .tl-title { font-size: 19px; }
+  .tl-desc { font-size: 14px; }
 
-  .footer-meta { flex-direction: column; gap: 24px; }
+  .quote { padding: clamp(70px, 14vw, 120px) 0; }
+  .quote::before { font-size: 260px; top: -20px; left: 0; }
+  .quote blockquote { font-size: clamp(1.5rem, 7vw, 2.4rem); }
+  .quote cite { margin-top: 24px; font-size: 12px; }
+
+  footer { padding: 90px 0 32px; }
+  .footer-cta { margin-bottom: 40px; }
+  .footer-email { padding: 16px 24px; gap: 12px; }
+  .footer-email .arr { width: 30px; height: 30px; font-size: 14px; }
+  .footer-meta { flex-direction: column; gap: 24px; padding: 36px 0 20px; margin-top: 40px; }
   .copyright { flex-direction: column; gap: 6px; }
+
+  .guestbook-frame { padding: 26px 18px; border-radius: 20px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — Small phone
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 420px) {
+  .wrap { padding: 0 16px; }
+
+  #nav { padding: 6px 6px 6px 14px; }
+  .logo { font-size: 18px; gap: 5px; }
+  .logo-dot { width: 8px; height: 8px; }
+
+  .hero { padding: 96px 0 48px; }
+  .hero h1 { margin-bottom: 22px; }
+  .hero-lede { font-size: 15px; margin-bottom: 26px; }
+  .btn { padding: 14px 20px; font-size: 14px; }
+
+  .hero-art { max-width: 280px; }
+  .sticker { font-size: 10px; padding: 7px 10px; }
+  .sticker.s2 { top: 18%; }
+
+  .section-title { font-size: clamp(2rem, 10vw, 2.8rem); }
+  .section-intro { font-size: 15px; margin-bottom: 40px; }
+
+  .bento-item { padding: 24px 20px; }
+  .cred-card { padding: 26px 22px; }
+  .cred-title { font-size: 18px; }
+
+  .award { padding: 28px 22px; }
+  .award-year { font-size: 10px; padding: 3px 10px; }
+
+  .tl-item { padding-left: 44px; }
+  .tl-title { font-size: 18px; }
+
+  .quote::before { font-size: 200px; }
+
+  .footer-email { font-size: 16px; padding: 14px 20px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   iOS safe area + overflow safety
+   ═══════════════════════════════════════════════════════════ */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Prevent horizontal scroll on any device */
+html, body { max-width: 100vw; overflow-x: hidden; }
+
+@media (max-width: 720px) {
+  /* Disable expensive blur on mobile for perf */
+  #nav { backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); }
+  .cursor-blob { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1144,13 +1317,13 @@ footer .tag::before { background: var(--tomato); }
       </div>
       <div class="bento-item b-award reveal">
         <span class="bento-emoji">🏆</span>
-        <div class="bento-big" data-en-html='3<sup>wins</sup>'>3<sup>회</sup></div>
+        <div class="bento-big" data-en-html='12<sup>wins</sup>'>12<sup>회</sup></div>
         <div class="bento-label" data-en="Contest wins">공모전 수상</div>
       </div>
       <div class="bento-item b-cert reveal">
         <span class="bento-emoji">📜</span>
-        <div class="bento-big" data-en-html='2<sup>certs</sup>'>2<sup>개</sup></div>
-        <div class="bento-label" data-en="National certifications">국가 전문 자격</div>
+        <div class="bento-big" data-en-html='5<sup>certs</sup>'>5<sup>개</sup></div>
+        <div class="bento-label" data-en="Certifications">전문 자격</div>
       </div>
       <div class="bento-item b-lang reveal">
         <span class="bento-emoji">🎬</span>
@@ -1192,6 +1365,21 @@ footer .tag::before { background: var(--tomato); }
         <div class="cred-title" data-en="Health Educator">보건교육사</div>
         <div class="cred-sub" data-en="National certification. Health education campaigns and content planning.">국가 전문 자격. 건강교육 캠페인과 보건 콘텐츠 기획.</div>
       </div>
+      <div class="cred-card reveal">
+        <span class="cred-emoji">💰</span>
+        <div class="cred-title" data-en="FAT Level 2">FAT 2급</div>
+        <div class="cred-sub" data-en="Accounting information processing certification by KICPA. Financial statements and bookkeeping.">한국공인회계사회 회계정보처리 자격. 재무제표와 회계 실무.</div>
+      </div>
+      <div class="cred-card reveal">
+        <span class="cred-emoji">🤖</span>
+        <div class="cred-title" data-en="AICE Basic">AICE Basic</div>
+        <div class="cred-sub" data-en="AI Certificate for Everyone by KT &amp; Korea Economic Daily. Practical AI literacy.">KT · 한국경제신문 공동 주관. AI 활용 역량 인증.</div>
+      </div>
+      <div class="cred-card reveal">
+        <span class="cred-emoji">🏥</span>
+        <div class="cred-title" data-en="First Aid Instructor">응급처치강사과정</div>
+        <div class="cred-sub" data-en="48-hour instructor course by the Korean Red Cross. CPR &amp; emergency response.">대한적십자사 48시간 강사과정 수료. 심폐소생술과 응급대응.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1209,42 +1397,13 @@ footer .tag::before { background: var(--tomato); }
 
       <div class="tl-item reveal">
         <span class="tl-year" data-en="2026 · This year">2026 · 올해</span>
-        <div class="tl-title" data-en="National certs · Graduation · AI in practice 🚀">국가자격 취득 · 졸업 · AI 활용 🚀</div>
-        <div class="tl-desc" data-en="Earning Youth Counselor Lv.2 and Health Educator national certifications and graduating from Daegu Haany. Actively weaving AI tools into real-world planning.">청소년지도사 2급·보건교육사 국가자격을 취득하고 대구한의대를 졸업합니다. AI 도구를 실무 기획에 적극 접목 중이에요.</div>
+        <div class="tl-title" data-en="National certs · AICE · First Aid · Graduation 🚀">국가자격 · AICE · 응급처치강사 · 졸업 🚀</div>
+        <div class="tl-desc" data-en="Earning Youth Counselor Lv.2 and Health Educator national certs, AICE Basic (AI certification by KT), Red Cross First Aid Instructor course (48h), and graduating from Daegu Haany.">청소년지도사 2급·보건교육사 국가자격, AICE Basic(KT·한경 AI 인증), 대한적십자사 응급처치강사과정(48h)을 취득하고 대구한의대를 졸업합니다.</div>
         <div class="tl-tags">
           <span class="tl-tag pop" data-en="National certs">국가자격</span>
-          <span class="tl-tag fresh" data-en="Graduation">졸업</span>
-          <span class="tl-tag warm" data-en="AI in practice">AI 활용</span>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2025. 11</span>
-        <div class="tl-title" data-en-html='Student e-Portfolio Contest — <em>Grand Prize</em> 🏆'>학생 e-포트폴리오 경진대회 <em>최우수상</em> 🏆</div>
-        <div class="tl-desc" data-en="Hosted by Daegu Haany Student Support Team. Wove four years of study, activities, and results into a single portfolio submission.">대구한의대 학생지원팀 주최. 4년간의 학업·활동·성과를 한 권의 포트폴리오로 엮어 제출했어요.</div>
-        <div class="tl-tags">
-          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
-          <span class="tl-tag" data-en="Portfolio">포트폴리오</span>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2025. 11</span>
-        <div class="tl-title" data-en="Good Neighbors 'Good Shop Discovery' Idea Contest — Winner 🤝">굿네이버스 좋은이웃가게발굴단 아이디어 공모전 수상 🤝</div>
-        <div class="tl-desc" data-en="Organized by Good Neighbors (NPO). Selected for an idea on discovering and connecting local shops for community co-prosperity.">사단법인 굿네이버스 주관. 지역 상생을 위한 가게 발굴·연결 아이디어를 제안해 선정됐어요.</div>
-        <div class="tl-tags">
-          <span class="tl-tag fresh" data-en="Contest">공모전</span>
-          <span class="tl-tag warm" data-en="Community">지역상생</span>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2025. 10</span>
-        <div class="tl-title" data-en-html='Career Idea Contest — <em>Grand Prize</em>'>재맞고 아이디어 공모전 <em>최우수상</em></div>
-        <div class="tl-desc" data-en="By Daegu Haany's University Job Plus Center. Won Grand Prize with a practical idea in career and employment.">대구한의대 대학일자리플러스센터 주관. 취업·진로 분야 실전 아이디어로 최우수상을 수상.</div>
-        <div class="tl-tags">
-          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
-          <span class="tl-tag" data-en="Career planning">진로기획</span>
+          <span class="tl-tag fresh" data-en="AICE Basic">AICE</span>
+          <span class="tl-tag warm" data-en="First Aid">응급처치</span>
+          <span class="tl-tag" data-en="Graduation">졸업</span>
         </div>
       </div>
 
@@ -1286,26 +1445,6 @@ footer .tag::before { background: var(--tomato); }
       </div>
 
       <div class="tl-item reveal">
-        <span class="tl-year">2024. 11</span>
-        <div class="tl-title" data-en-html='LINC 3.0 Generative AI Contest — <em>Grand Prize</em> 🤖'>LINC 3.0 생성형 AI 활용 공모전 <em>최우수상</em> 🤖</div>
-        <div class="tl-desc" data-en="By Daegu Haany's Industry-Academia Center. Won Grand Prize with a case of applying AI tools to real planning and content production.">대구한의대 산학연계교육지원센터 주관. AI 도구를 실제 기획·콘텐츠 제작에 접목한 사례로 최우수상을 받았어요.</div>
-        <div class="tl-tags">
-          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
-          <span class="tl-tag warm" data-en="AI in practice">AI 활용</span>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2024. 10</span>
-        <div class="tl-title" data-en-html='Youth Organization Activities — <em>Commendation</em> 🎖'>청소년단체활동 <em>표창장</em> 🎖</div>
-        <div class="tl-desc" data-en="Awarded by the National Council of Youth Organizations in Korea. An official recognition of years of youth group activities and field volunteering.">한국청소년단체협의회에서 수여. 장기간의 청소년 단체 활동과 현장 봉사를 공식적으로 인정받은 순간이에요.</div>
-        <div class="tl-tags">
-          <span class="tl-tag fresh" data-en="Commendation">표창</span>
-          <span class="tl-tag" data-en="Long-term">장기활동</span>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
         <span class="tl-year" data-en="Sep 2024 — Feb 2025">2024. 09 — 2025. 02</span>
         <div class="tl-title" data-en="K-MEDI Digital Learning Center — Campus Work 🎬">K-MEDI 디지털교육센터 교내근로 🎬</div>
         <div class="tl-desc" data-en="In charge of filming and editing lecture videos. Worked hand-in-hand with professors to produce online course content.">강의 영상 촬영과 영상편집을 전담. 교수자와 협업하여 온라인 강의 콘텐츠를 직접 만들었어요.</div>
@@ -1320,43 +1459,6 @@ footer .tag::before { background: var(--tomato); }
         <div class="tl-title" data-en="Military Service · Peer Counseling Soldier 🎖">군복무 · 또래상담병 🎖</div>
         <div class="tl-desc" data-en="Served roughly 8 months as a peer counseling soldier. Psychological support and conflict mediation inside the unit.">약 8개월간 또래상담병 임무 수행. 병영 내 심리지원과 갈등 중재 업무.</div>
         <div class="tl-tags"><span class="tl-tag fresh" data-en="Counseling practice">상담실무</span></div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2022. 12</span>
-        <div class="tl-title" data-en-html='Youth Program Contest — <em>Excellence Award</em>'>청소년 프로그램 공모전 <em>우수상</em></div>
-        <div class="tl-desc" data-en="By Gyeongsan Gyerim Youth Training Center. Designed a Roblox-based youth campaign and won the Excellence Award.">경산시계림청소년수련원 주관. 로블록스 기반 청소년 캠페인을 기획·설계해 우수상을 받았어요.</div>
-        <div class="tl-tags">
-          <span class="tl-tag pop" data-en="Excellence Award">우수상</span>
-          <span class="tl-tag warm" data-en="Planning">기획</span>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2022. 05</span>
-        <div class="tl-title" data-en="Hwarang Spirit Photo Contest — Merit Award 📷">화랑정신 사진공모전 장려상 📷</div>
-        <div class="tl-desc" data-en="Hosted by the Korea Youth Hwarangdo League. A single photo taken through a youth's lens earned a Merit Award.">한국청소년화랑도연맹 주최. 청소년다운 시선으로 담은 사진 한 장이 장려상으로 이어졌어요.</div>
-        <div class="tl-tags"><span class="tl-tag" data-en="Photography">사진</span></div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2022. 02</span>
-        <div class="tl-title" data-en-html='e-Learning Case Essay Contest — <em>Top Prize</em> 🏅'>e러닝 우수사례 수기공모전 <em>대상</em> 🏅</div>
-        <div class="tl-desc" data-en="By Daegu Haany Distance Learning Center. A candid essay on my online learning experience that took the Top Prize.">대구한의대 원격교육지원센터 주관. 온라인 학습 경험을 진솔하게 풀어낸 수기로 대상을 받았어요.</div>
-        <div class="tl-tags">
-          <span class="tl-tag pop" data-en="Top Prize">대상</span>
-          <span class="tl-tag" data-en="Writing">글쓰기</span>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <span class="tl-year">2021. 11</span>
-        <div class="tl-title" data-en-html='Jump-Up Online Contest — <em>Grand Prize</em>'>jump-up 랜선공모전 <em>최우수상</em></div>
-        <div class="tl-desc" data-en="By the University Innovation Team. My very first campus Grand Prize as a freshman — the starting point of my contest habit.">대학혁신평가팀 주관. 신입생이던 시기에 받은 첫 교내 최우수상 — 공모전에 본격적으로 빠지게 된 출발점이에요.</div>
-        <div class="tl-tags">
-          <span class="tl-tag pop" data-en="Grand Prize">최우수상</span>
-          <span class="tl-tag fresh" data-en="First win">첫 수상</span>
-        </div>
       </div>
 
       <div class="tl-item reveal">
@@ -1419,31 +1521,114 @@ footer .tag::before { background: var(--tomato); }
   <div class="wrap">
     <div class="tag reveal" data-en="Awards">수상</div>
     <h2 class="section-title reveal" data-en-html='Proven <em>planning power.</em>'>증명해 온 <em>기획력.</em></h2>
-    <p class="section-intro reveal" data-en="A field, a team, and a result. A track record showing that ideas turned into action. 🏆">
-      현장이 있고, 팀이 있고, 결과가 있습니다. 아이디어가 실행으로 이어졌음을 보여주는 트랙 레코드 🏆
+    <p class="section-intro reveal" data-en="12 contest wins across 5 years — from my very first freshman prize to a national-level competition. Ideas turned into action, every time. 🏆">
+      5년간 공모전 12회 수상 — 신입생 시절 첫 수상부터 전국 단위 공모전까지. 매번 아이디어를 실행으로 옮겼습니다 🏆
     </p>
 
-    <div class="awards">
-      <div class="award reveal">
-        <span class="award-year">2023</span>
-        <span class="award-medal">🥇</span>
-        <div class="award-rank" data-en="Gold">금상</div>
-        <div class="award-title" data-en="University Innovation Support UCC Contest">대학혁신지원사업 UCC 공모전</div>
-        <div class="award-host" data-en="Daegu Haany University">대구한의대학교</div>
+    <div class="award-list">
+      <div class="award-row reveal">
+        <span class="award-row-year">2025</span>
+        <span class="award-row-rank grand" data-en="Grand Prize">최우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Student e-Portfolio Contest">학생 e-포트폴리오 경진대회</div>
+          <div class="award-row-host" data-en="Daegu Haany Student Support Team">대구한의대 학생지원팀</div>
+        </div>
       </div>
-      <div class="award reveal">
-        <span class="award-year">2022</span>
-        <span class="award-medal">🌟</span>
-        <div class="award-rank" data-en="Excellence">우수상</div>
-        <div class="award-title" data-en="K-MOOC Best Case Contest">K-MOOC 우수사례 공모전</div>
-        <div class="award-host" data-en="Ministry of Education · NILE">교육부 · 국가평생교육진흥원</div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2025</span>
+        <span class="award-row-rank excel" data-en="Excellence">우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Good Neighbors 'Good Shop Discovery' Contest">좋은이웃가게발굴단 공모전</div>
+          <div class="award-row-host" data-en="Good Neighbors International">사단법인 굿네이버스</div>
+        </div>
       </div>
-      <div class="award reveal">
-        <span class="award-year">2021</span>
-        <span class="award-medal">💡</span>
-        <div class="award-rank" data-en="Merit">장려상</div>
-        <div class="award-title" data-en="University Startup Competition">대학 창업경진대회</div>
-        <div class="award-host" data-en="Daegu Haany University">대구한의대학교</div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2025</span>
+        <span class="award-row-rank grand" data-en="Grand Prize">최우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Career Idea Contest (재맞고)">재맞고 아이디어 공모전</div>
+          <div class="award-row-host" data-en="Daegu Haany Job Plus Center">대구한의대 대학일자리플러스센터</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2024</span>
+        <span class="award-row-rank grand" data-en="Grand Prize">최우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="LINC 3.0 Generative AI Contest">LINC 3.0 생성형 AI 활용 공모전</div>
+          <div class="award-row-host" data-en="Daegu Haany Industry-Academia Center">대구한의대 산학연계교육지원센터</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2023</span>
+        <span class="award-row-rank gold" data-en="Gold">금상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="University Innovation Support UCC Contest">대학혁신지원사업 UCC 공모전</div>
+          <div class="award-row-host" data-en="Daegu Haany University">대구한의대학교</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2022</span>
+        <span class="award-row-rank commend" data-en="Commendation">표창장</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Youth Organization Activities — Commendation">청소년단체활동 표창</div>
+          <div class="award-row-host" data-en="National Council of Youth Organizations in Korea">한국청소년단체협의회</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2022</span>
+        <span class="award-row-rank excel" data-en="Excellence">우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="K-MOOC Best Case Contest">K-MOOC 우수사례 공모전</div>
+          <div class="award-row-host" data-en="Ministry of Education · NILE">교육부 · 국가평생교육진흥원</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2022</span>
+        <span class="award-row-rank excel" data-en="Excellence">우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Youth Program Contest">청소년 프로그램 공모전</div>
+          <div class="award-row-host" data-en="Gyeongsan Gyerim Youth Center">경산시 계림청소년수련원</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2022</span>
+        <span class="award-row-rank merit" data-en="Merit">장려상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Hwarang Spirit Photo Contest">화랑정신 사진공모전</div>
+          <div class="award-row-host" data-en="Korea Youth Hwarangdo League">한국청소년화랑도연맹</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2021</span>
+        <span class="award-row-rank top" data-en="Top Prize">대상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="e-Learning Best Case Essay Contest">e러닝 우수사례 수기공모전</div>
+          <div class="award-row-host" data-en="Daegu Haany Distance Learning Center">대구한의대 원격교육지원센터</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2021</span>
+        <span class="award-row-rank grand" data-en="Grand Prize">최우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Jump-Up Online Contest">jump-up 랜선공모전</div>
+          <div class="award-row-host" data-en="University Innovation Team">대학혁신평가팀</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2021</span>
+        <span class="award-row-rank excel" data-en="Excellence">우수상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="Youth Program Development Contest">청소년 프로그램 개발 공모전</div>
+          <div class="award-row-host" data-en="Gyeongsan Gyerim Youth Center">경산시 계림청소년수련원</div>
+        </div>
+      </div>
+      <div class="award-row reveal">
+        <span class="award-row-year">2021</span>
+        <span class="award-row-rank merit" data-en="Merit">장려상</span>
+        <div class="award-row-body">
+          <div class="award-row-title" data-en="University Startup Competition">대학 창업경진대회</div>
+          <div class="award-row-host" data-en="Daegu Haany University">대구한의대학교</div>
+        </div>
       </div>
     </div>
   </div>
