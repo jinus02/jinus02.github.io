@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jinus_02 uploader</title>
+<style>
+  :root { --bg:#ffffff; --fg:#1b1b1f; --muted:#5b616b; --line:#e3e5e8; --accent:#1a56db; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111318; --fg:#e8eaed; --muted:#9aa0a6; --line:#2a2d34; --accent:#8ab4f8; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.65 -apple-system, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:48px 16px 80px; }
+  h1 { font-size:28px; margin:0 0 8px; } h2 { font-size:20px; margin:32px 0 8px; }
+  p, li { color:var(--fg); } .muted { color:var(--muted); }
+  a { color:var(--accent); } hr { border:0; border-top:1px solid var(--line); margin:32px 0; }
+  table { border-collapse:collapse; width:100%; } td, th { border-bottom:1px solid var(--line); padding:8px 4px; text-align:left; vertical-align:top; }
+</style>
+</head>
+<body>
+<main>
+  <h1>jinus_02 uploader</h1>
+  <p class="muted">개인 운영자가 자신의 YouTube 채널에 영상을 올리기 위해 만든 비공개 데스크톱 도구입니다.</p>
+
+  <h2>이 앱은 무엇을 하나요</h2>
+  <ul>
+    <li>운영자 PC에서 만든 영상 파일(.mp4), 자막(.srt), 썸네일(.png)을 <strong>운영자 본인 소유의 YouTube 채널</strong>에 <strong>비공개</strong> 상태로 업로드합니다.</li>
+    <li>공개 전환, 제목·설명 최종 확인은 YouTube 스튜디오에서 사람이 직접 합니다.</li>
+    <li>일반 사용자에게 배포하지 않습니다. 운영자 1인과 운영자가 관리하는 채널 계정만 사용합니다.</li>
+  </ul>
+
+  <h2>사용하는 Google 권한</h2>
+  <table>
+    <tr><th>범위</th><th>용도</th></tr>
+    <tr><td><code>youtube.upload</code></td><td>영상 업로드</td></tr>
+    <tr><td><code>youtube.force-ssl</code></td><td>업로드한 영상에 자막·썸네일 첨부, 내 채널 정보 조회</td></tr>
+  </table>
+
+  <h2>문의</h2>
+  <p>운영자: jinus (이진우) · 지원 이메일: <a href="mailto:dlwlsdn199@gmail.com">dlwlsdn199@gmail.com</a></p>
+  <p><a href="privacy.html">개인정보처리방침 보기</a></p>
+
+  <hr>
+  <p class="muted">최종 수정 2026-10-08</p>
+</main>
+</body>
+</html>
